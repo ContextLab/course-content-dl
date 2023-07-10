@@ -3,3 +3,5 @@
 .idea
 _build
 _toc.yml
+config.yaml
+.DS_Store
