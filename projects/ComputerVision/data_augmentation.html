@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Augmentation in image classification models &#8212; Neuromatch Academy: Deep Learning</title>
+    <title>Data Augmentation in image classification models &#8212; Neuromatch Academy: Deep Learning (Experimental)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -98,7 +98,7 @@ const thebe_selector_output = ".output, .cell_output"
       <img src="../../_static/nma-dl-logo-square-4xp.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning</h1>
+      <h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning (Experimental)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -937,7 +937,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://github.com/NeuromatchAcademy/course-content-dl"
+        <a href="https://github.com/ContextLab/course-content-dl"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -954,7 +954,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/NeuromatchAcademy/course-content-dl/issues/new?title=Issue%20on%20page%20%2Fprojects/ComputerVision/data_augmentation.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/ContextLab/course-content-dl/issues/new?title=Issue%20on%20page%20%2Fprojects/ComputerVision/data_augmentation.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1538,8 +1538,8 @@ GPU is enabled in this notebook.
 <div class="section" id="mixup">
 <h2>Mixup<a class="headerlink" href="#mixup" title="Permalink to this headline">¶</a></h2>
 <p>Mixup is a data augmentation technique that combines pairs of examples via a convex combination of the images and the labels. Given images <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span> with labels <span class="math notranslate nohighlight">\(y_i\)</span> and <span class="math notranslate nohighlight">\(y_j\)</span>, respectively, and <span class="math notranslate nohighlight">\(\lambda \in [0, 1]\)</span>, mixup creates a new image <span class="math notranslate nohighlight">\(\hat{x}\)</span> with label <span class="math notranslate nohighlight">\(\hat{y}\)</span> the following way:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-058e1b27-d77c-4030-8eeb-fd61cb56f2ca">
-<span class="eqno">(128)<a class="headerlink" href="#equation-058e1b27-d77c-4030-8eeb-fd61cb56f2ca" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9054a639-f33f-4175-9469-f3be88171652">
+<span class="eqno">(128)<a class="headerlink" href="#equation-9054a639-f33f-4175-9469-f3be88171652" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \hat{x} &amp;= \lambda x_i + (1 - \lambda) x_j \\
 \hat{y} &amp;= \lambda y_i + (1 - \lambda) y_j
 \end{align}\]</div>

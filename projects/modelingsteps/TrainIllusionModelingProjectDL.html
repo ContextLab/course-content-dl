@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Example Model Project: the Train Illusion &#8212; Neuromatch Academy: Deep Learning</title>
+    <title>Example Model Project: the Train Illusion &#8212; Neuromatch Academy: Deep Learning (Experimental)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -98,7 +98,7 @@ const thebe_selector_output = ".output, .cell_output"
       <img src="../../_static/nma-dl-logo-square-4xp.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning</h1>
+      <h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning (Experimental)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -937,7 +937,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://github.com/NeuromatchAcademy/course-content-dl"
+        <a href="https://github.com/ContextLab/course-content-dl"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -954,7 +954,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/NeuromatchAcademy/course-content-dl/issues/new?title=Issue%20on%20page%20%2Fprojects/modelingsteps/TrainIllusionModelingProjectDL.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/ContextLab/course-content-dl/issues/new?title=Issue%20on%20page%20%2Fprojects/modelingsteps/TrainIllusionModelingProjectDL.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1320,8 +1320,8 @@ title="Print to PDF"
 <p><em>Part of step 5</em></p>
 <p>We chose to use a <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2474742/">Drift-Diffusion Model (DDM)</a> because it is a well-established framework that allows us to model decision making in the case of 2 alternative choices (here: self-motion vs. other train motion).</p>
 <p>For our purposes simplest equation looks something like this:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3e333858-e8fd-4d09-a77e-316cd4f2994e">
-<span class="eqno">(127)<a class="headerlink" href="#equation-3e333858-e8fd-4d09-a77e-316cd4f2994e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5d268380-0ea2-4d04-8d6d-4e914f08bdb5">
+<span class="eqno">(127)<a class="headerlink" href="#equation-5d268380-0ea2-4d04-8d6d-4e914f08bdb5" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \dot e = \frac{de}{dt}= -c \cdot e + v \, ,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(e\)</span> is the accumulated evidence and <span class="math notranslate nohighlight">\(v\)</span> is our vestibular input already containing the noise (so we don’t need to add more noise?). <span class="math notranslate nohighlight">\(c\)</span> is the leakage constant, i.e., <span class="math notranslate nohighlight">\(c=0\)</span> means perfect integration; <span class="math notranslate nohighlight">\(c=1\)</span> means no integration (perfect leakage).</p>
@@ -1609,7 +1609,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Motion detected for no-motion: 29.5% and motion: 60.0%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Motion detected for no-motion: 30.1% and motion: 57.4%
 </pre></div>
 </div>
 </div>
