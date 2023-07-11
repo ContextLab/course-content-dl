@@ -5,3 +5,10 @@ _build
 _toc.yml
 config.yaml
 .DS_Store
+book/
+book/projects
+ci/*.py
+tutorials/*/*.md
+prereqs/
+tutorials/W1D1_BasicsAndPytorch/student/data/cifar-10-python.tar.gz
+tutorials
