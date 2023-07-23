@@ -30,5 +30,8 @@ python ci/parse_html_for_errors.py student
 
 ghp-import -n -c "deeplearning.neuromatch.io" -m "Update course book" book/_build/html
 git checkout -f gh-pages
+git push origin gh-pages
+
+git checkout main
 
 cd chatify
