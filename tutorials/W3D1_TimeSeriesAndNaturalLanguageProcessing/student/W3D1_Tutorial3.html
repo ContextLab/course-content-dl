@@ -2,1112 +2,1349 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Bonus Tutorial: Multilingual Embeddings — Neuromatch Academy: Deep Learning (Experimental)</title>
-<!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css" rel="stylesheet"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css">
-<link href="../../../_static/styles/sphinx-book-theme.css" rel="stylesheet" type="text/css">
-<link href="../../../_static/togglebutton.css" rel="stylesheet" type="text/css">
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
-<link href="../../../_static/mystnb.css" rel="stylesheet" type="text/css">
-<link href="../../../_static/sphinx-thebe.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" rel="stylesheet" type="text/css"/>
-<!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf" rel="preload"/>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/jquery.js"></script>
-<script src="../../../_static/underscore.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/togglebutton.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-<script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-<script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bonus Tutorial: Multilingual Embeddings &#8212; Neuromatch Academy: Deep Learning (Experimental)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-<script async="async" src="../../../_static/sphinx-thebe.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
-<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-<link href="../../../_static/nma-dl-logo-square-4xp.png" rel="shortcut icon">
-<link href="../../../genindex.html" rel="index" title="Index"/>
-<link href="../../../search.html" rel="search" title="Search"/>
-<link href="../../W3D2_DlThinking2/chapter_title.html" rel="next" title="Dl Thinking2"/>
-<link href="W3D1_Tutorial2.html" rel="prev" title="Tutorial 2: Natural Language Processing and LLMs"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="None" name="docsearch:language"/>
-<!-- Google Analytics -->
-</link></link></link></link></link></link></head>
-<body data-offset="60" data-spy="scroll" data-target="#bd-toc-nav">
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="shortcut icon" href="../../../_static/nma-dl-logo-square-4xp.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Dl Thinking2" href="../../W3D2_DlThinking2/chapter_title.html" />
+    <link rel="prev" title="Tutorial 2: Natural Language Processing and LLMs" href="W3D1_Tutorial2.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
 <!-- Checkboxes to toggle the left sidebar -->
-<input aria-label="Toggle navigation sidebar" class="sidebar-toggle" id="__navigation" name="__navigation" type="checkbox"/>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
 <label class="overlay overlay-navbar" for="__navigation">
-<div class="visually-hidden">Toggle navigation sidebar</div>
+    <div class="visually-hidden">Toggle navigation sidebar</div>
 </label>
 <!-- Checkboxes to toggle the in-page toc -->
-<input aria-label="Toggle in-page Table of Contents" class="sidebar-toggle" id="__page-toc" name="__page-toc" type="checkbox"/>
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
 <label class="overlay overlay-pagetoc" for="__page-toc">
-<div class="visually-hidden">Toggle in-page Table of Contents</div>
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
 </label>
 <!-- Headers at the top -->
 <div class="announcement header-item noprint"></div>
 <div class="header header-item noprint"></div>
-<div class="container-fluid" id="banner"></div>
-<div class="container-xl">
-<div class="row">
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
 <!-- Sidebar -->
 <div class="bd-sidebar noprint" id="site-navigation">
-<div class="bd-sidebar__content">
-<div class="bd-sidebar__top"><div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../../../index.html">
-<!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-<img alt="logo" class="logo" src="../../../_static/nma-dl-logo-square-4xp.png"/>
-<h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning (Experimental)</h1>
-</a>
-</div><form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
-<i class="icon fas fa-search"></i>
-<input aria-label="Search this book..." autocomplete="off" class="form-control" id="search-input" name="q" placeholder="Search this book..." type="search"/>
-</form><nav aria-label="Main" class="bd-links" id="bd-docs-nav">
-<div class="bd-toc-item active">
-<ul class="nav bd-sidenav bd-sidenav__home-link">
-<li class="toctree-l1">
-<a class="reference internal" href="../../intro.html">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/nma-dl-logo-square-4xp.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Neuromatch Academy: Deep Learning (Experimental)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
                     Introduction
                 </a>
-</li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../Schedule/schedule_intro.html">
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Schedule/schedule_intro.html">
    Schedule
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox">
-<label for="toctree-checkbox-1">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../Schedule/daily_schedules.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Schedule/daily_schedules.html">
      General schedule
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../Schedule/shared_calendars.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Schedule/shared_calendars.html">
      Shared calendars
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../Schedule/timezone_widget.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Schedule/timezone_widget.html">
      Timezone widget
     </a>
-</li>
-</ul>
-</input></li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../TechnicalHelp/tech_intro.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../TechnicalHelp/tech_intro.html">
    Technical Help
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox">
-<label for="toctree-checkbox-2">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2 has-children">
-<a class="reference internal" href="../../TechnicalHelp/Jupyterbook.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../TechnicalHelp/Jupyterbook.html">
      Using jupyterbook
     </a>
-<input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox">
-<label for="toctree-checkbox-3">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l3">
-<a class="reference internal" href="../../TechnicalHelp/Tutorial_colab.html">
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../TechnicalHelp/Tutorial_colab.html">
        Using Google Colab
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../TechnicalHelp/Tutorial_kaggle.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../TechnicalHelp/Tutorial_kaggle.html">
        Using Kaggle
       </a>
-</li>
-</ul>
-</input></li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../TechnicalHelp/Discord.html">
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../TechnicalHelp/Discord.html">
      Using Discord
     </a>
-</li>
-</ul>
-</input></li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1">
-<a class="reference internal" href="../../TechnicalHelp/Links_Policy.html">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../TechnicalHelp/Links_Policy.html">
    Quick links and policies
   </a>
-</li>
+ </li>
 </ul>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1">
-<a class="reference internal" href="../../../prereqs/DeepLearning.html">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../prereqs/DeepLearning.html">
    Prerequisites and preparatory materials for NMA Deep Learning
   </a>
-</li>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Basics Module
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W1D1_BasicsAndPytorch/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W1D1_BasicsAndPytorch/chapter_title.html">
    Basics And Pytorch (W1D1)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-<label for="toctree-checkbox-4">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D1_BasicsAndPytorch/student/W1D1_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D1_BasicsAndPytorch/student/W1D1_Tutorial1.html">
      Tutorial 1: PyTorch
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W1D2_LinearDeepLearning/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W1D2_LinearDeepLearning/chapter_title.html">
    Linear Deep Learning (W1D2)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-<label for="toctree-checkbox-5">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial1.html">
      Tutorial 1: Gradient Descent and AutoGrad
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial2.html">
      Tutorial 2: Learning Hyperparameters
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial3.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_Tutorial3.html">
      Tutorial 3: Deep linear neural networks
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D2_LinearDeepLearning/student/W1D2_BonusLecture.html">
      Bonus Lecture: Yoshua Bengio
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/chapter_title.html">
    Multi Layer Perceptrons (W1D3)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-<label for="toctree-checkbox-6">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/student/W1D3_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/student/W1D3_Tutorial1.html">
      Tutorial 1: Biological vs. Artificial Neural Networks
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/student/W1D3_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D3_MultiLayerPerceptrons/student/W1D3_Tutorial2.html">
      Tutorial 2: Deep MLPs
     </a>
-</li>
-</ul>
-</li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Fine Tuning
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W1D5_Optimization/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W1D5_Optimization/chapter_title.html">
    Optimization (W1D5)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-<label for="toctree-checkbox-7">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W1D5_Optimization/student/W1D5_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W1D5_Optimization/student/W1D5_Tutorial1.html">
      Tutorial 1: Optimization techniques
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W2D1_Regularization/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W2D1_Regularization/chapter_title.html">
    Regularization (W2D1)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-<label for="toctree-checkbox-8">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D1_Regularization/student/W2D1_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D1_Regularization/student/W2D1_Tutorial1.html">
      Tutorial 1: Regularization techniques part 1
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D1_Regularization/student/W2D1_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D1_Regularization/student/W2D1_Tutorial2.html">
      Tutorial 2: Regularization techniques part 2
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1">
-<a class="reference internal" href="../../Module_WrapUps/FineTuning.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Module_WrapUps/FineTuning.html">
    Deep Learning: The Basics and Fine Tuning Wrap-up
   </a>
-</li>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   ConvNets and Generative Models
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/chapter_title.html">
    Convnets And Dl Thinking (W2D2)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-<label for="toctree-checkbox-9">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_Tutorial1.html">
      Tutorial 1: Introduction to CNNs
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_Tutorial2.html">
      Tutorial 2: Deep Learning Thinking 1: Cost Functions
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D2_ConvnetsAndDlThinking/student/W2D2_BonusLecture.html">
      Bonus Lecture: Kyunghyun Cho
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W2D3_ModernConvnets/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W2D3_ModernConvnets/chapter_title.html">
    Modern Convnets (W2D3)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-<label for="toctree-checkbox-10">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D3_ModernConvnets/student/W2D3_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D3_ModernConvnets/student/W2D3_Tutorial1.html">
      Tutorial 1: Learn how to use modern convnets
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D3_ModernConvnets/student/W2D3_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D3_ModernConvnets/student/W2D3_Tutorial2.html">
      Bonus Tutorial: Facial recognition using modern convnets
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W2D4_GenerativeModels/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W2D4_GenerativeModels/chapter_title.html">
    Generative Models (W2D4)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-<label for="toctree-checkbox-11">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial1.html">
      Tutorial 1: Variational Autoencoders (VAEs)
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial2.html">
      Tutorial 2: Diffusion models
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial3.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_Tutorial3.html">
      Tutorial 3: Image, Conditional Diffusion and Beyond
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D4_GenerativeModels/student/W2D4_BonusLecture.html">
      Bonus Lecture: Geoffrey Hinton
     </a>
-</li>
-</ul>
-</li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Natural Language Processing
  </span>
 </p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W2D5_AttentionAndTransformers/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W2D5_AttentionAndTransformers/chapter_title.html">
    Attention And Transformers (W2D5)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-<label for="toctree-checkbox-12">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D5_AttentionAndTransformers/student/W2D5_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D5_AttentionAndTransformers/student/W2D5_Tutorial1.html">
      Tutorial 1: Learn how to work with Transformers
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W2D5_AttentionAndTransformers/student/W2D5_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W2D5_AttentionAndTransformers/student/W2D5_Tutorial2.html">
      Bonus Tutorial: Understanding Pre-training, Fine-tuning and Robustness of Transformers
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 current active has-children">
-<a class="reference internal" href="../chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../chapter_title.html">
    Time Series And Natural Language Processing (W3D1)
   </a>
-<input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-<label for="toctree-checkbox-13">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul class="current">
-<li class="toctree-l2">
-<a class="reference internal" href="W3D1_Tutorial1.html">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="W3D1_Tutorial1.html">
      Tutorial 1: Introduction to processing time series
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="W3D1_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="W3D1_Tutorial2.html">
      Tutorial 2: Natural Language Processing and LLMs
     </a>
-</li>
-<li class="toctree-l2 current active">
-<a class="current reference internal" href="#">
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Bonus Tutorial: Multilingual Embeddings
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W3D2_DlThinking2/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W3D2_DlThinking2/chapter_title.html">
    Dl Thinking2 (W3D2)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-<label for="toctree-checkbox-14">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D2_DlThinking2/student/W3D2_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D2_DlThinking2/student/W3D2_Tutorial1.html">
      Tutorial 1: Deep Learning Thinking 2: Architectures and Multimodal DL thinking
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1">
-<a class="reference internal" href="../../Module_WrapUps/NaturalLanguageProcessing.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Module_WrapUps/NaturalLanguageProcessing.html">
    Deep Learning: Convnets and NLP
   </a>
-</li>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Unsupervised and Reinforcement Learning
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/chapter_title.html">
    Unsupervised And Self Supervised Learning (W3D3)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
-<label for="toctree-checkbox-15">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/student/W3D3_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/student/W3D3_Tutorial1.html">
      Tutorial 1: Un/Self-supervised learning methods
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/student/W3D3_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D3_UnsupervisedAndSelfSupervisedLearning/student/W3D3_BonusLecture.html">
      Bonus Lecture: Melanie Mitchell
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W3D4_BasicReinforcementLearning/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W3D4_BasicReinforcementLearning/chapter_title.html">
    Basic Reinforcement Learning (W3D4)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
-<label for="toctree-checkbox-16">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D4_BasicReinforcementLearning/student/W3D4_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D4_BasicReinforcementLearning/student/W3D4_Tutorial1.html">
      Tutorial 1: Basic Reinforcement Learning
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D4_BasicReinforcementLearning/student/W3D4_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D4_BasicReinforcementLearning/student/W3D4_BonusLecture.html">
      Bonus Lecture: Chealsea Finn
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/chapter_title.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/chapter_title.html">
    Reinforcement Learning For Games And Dl Thinking3 (W3D5)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
-<label for="toctree-checkbox-17">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial1.html">
      Tutorial 1: Reinforcement Learning For Games
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial2.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial2.html">
      Tutorial 2: Deep Learning Thinking 3
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial3.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_Tutorial3.html">
      Bonus Tutorial: Planning with Monte Carlo Tree Search
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_BonusLecture.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../W3D5_ReinforcementLearningForGamesAndDlThinking3/student/W3D5_BonusLecture.html">
      Bonus Lecture: Amita Kapoor
     </a>
-</li>
-</ul>
-</li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Deploy Models on the Web
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../Bonus_DeployModels/chapter_title.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../Bonus_DeployModels/chapter_title.html">
    Deploy Models (Bonus)
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
-<label for="toctree-checkbox-18">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../Bonus_DeployModels/student/Bonus_Tutorial1.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+  <label for="toctree-checkbox-18">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Bonus_DeployModels/student/Bonus_Tutorial1.html">
      Bonus Tutorial: Deploying Neural Networks on the Web
     </a>
-</li>
-</ul>
-</li>
+   </li>
+  </ul>
+ </li>
 </ul>
 <p class="caption">
-<span class="caption-text">
+ <span class="caption-text">
   Project Booklet
  </span>
 </p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1">
-<a class="reference internal" href="../../../projects/README.html">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../projects/README.html">
    Introduction to projects
   </a>
-</li>
-<li class="toctree-l1">
-<a class="reference internal" href="../../../projects/docs/project_guidance.html">
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../projects/docs/project_guidance.html">
    Daily guide for projects
   </a>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../../projects/modelingsteps/intro.html">
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../projects/modelingsteps/intro.html">
    Modeling Step-by-Step Guide
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
-<label for="toctree-checkbox-19">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_1through2_DL.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+  <label for="toctree-checkbox-19">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_1through2_DL.html">
      Modeling Steps 1 - 2
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_3through4_DL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_3through4_DL.html">
      Modeling Steps 3 - 4
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_5through6_DL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_5through6_DL.html">
      Modeling Steps 5 - 6
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_7through9_DL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_7through9_DL.html">
      Modeling Steps 7 - 9
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_10_DL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/ModelingSteps_10_DL.html">
      Modeling Steps 10
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/TrainIllusionDataProjectDL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/TrainIllusionDataProjectDL.html">
      Example Data Project: the Train Illusion
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/TrainIllusionModelingProjectDL.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/TrainIllusionModelingProjectDL.html">
      Example Model Project: the Train Illusion
     </a>
-</li>
-<li class="toctree-l2">
-<a class="reference internal" href="../../../projects/modelingsteps/Example_Deep_Learning_Project.html">
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../projects/modelingsteps/Example_Deep_Learning_Project.html">
      Example Deep Learning Project
     </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 has-children">
-<a class="reference internal" href="../../../projects/docs/projects_overview.html">
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../projects/docs/projects_overview.html">
    Project Templates
   </a>
-<input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
-<label for="toctree-checkbox-20">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l2 has-children">
-<a class="reference internal" href="../../../projects/ComputerVision/README.html">
+  <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+  <label for="toctree-checkbox-20">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../projects/ComputerVision/README.html">
      Computer Vision
     </a>
-<input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
-<label for="toctree-checkbox-21">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/slides.html">
+    <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+    <label for="toctree-checkbox-21">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/slides.html">
        Slides
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/ideas_and_datasets.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/ideas_and_datasets.html">
        Ideas
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/em_synapses.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/em_synapses.html">
        Knowledge Extraction from a Convolutional Neural Network
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/spectrogram_analysis.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/spectrogram_analysis.html">
        Music classification and generation with spectrograms
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/screws.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/screws.html">
        Something Screwy - image recognition, detection, and classification of screws
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/data_augmentation.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/data_augmentation.html">
        Data Augmentation in image classification models
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ComputerVision/transfer_learning.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ComputerVision/transfer_learning.html">
        Transfer Learning
       </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l2 has-children">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/README.html">
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../projects/ReinforcementLearning/README.html">
      Reinforcement Learning
     </a>
-<input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
-<label for="toctree-checkbox-22">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/slides.html">
+    <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+    <label for="toctree-checkbox-22">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ReinforcementLearning/slides.html">
        Slides
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/ideas_and_datasets.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ReinforcementLearning/ideas_and_datasets.html">
        Ideas
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/robolympics.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ReinforcementLearning/robolympics.html">
        NMA Robolympics: Controlling robots using reinforcement learning
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/lunar_lander.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ReinforcementLearning/lunar_lander.html">
        Performance Analysis of DQN Algorithm on the Lunar Lander task
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/ReinforcementLearning/human_rl.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/ReinforcementLearning/human_rl.html">
        Using RL to Model Cognitive Tasks
       </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l2 has-children">
-<a class="reference internal" href="../../../projects/NaturalLanguageProcessing/README.html">
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../projects/NaturalLanguageProcessing/README.html">
      Natural Language Processing
     </a>
-<input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
-<label for="toctree-checkbox-23">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/NaturalLanguageProcessing/slides.html">
+    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+    <label for="toctree-checkbox-23">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/NaturalLanguageProcessing/slides.html">
        Slides
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/NaturalLanguageProcessing/ideas_and_datasets.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/NaturalLanguageProcessing/ideas_and_datasets.html">
        Ideas
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/NaturalLanguageProcessing/sentiment_analysis.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/NaturalLanguageProcessing/sentiment_analysis.html">
        Twitter Sentiment Analysis
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/NaturalLanguageProcessing/machine_translation.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/NaturalLanguageProcessing/machine_translation.html">
        Machine Translation
       </a>
-</li>
-</ul>
-</li>
-<li class="toctree-l2 has-children">
-<a class="reference internal" href="../../../projects/Neuroscience/README.html">
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../projects/Neuroscience/README.html">
      Neuroscience
     </a>
-<input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
-<label for="toctree-checkbox-24">
-<i class="fas fa-chevron-down">
-</i>
-</label>
-<ul>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/slides.html">
+    <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+    <label for="toctree-checkbox-24">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/slides.html">
        Slides
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/ideas_and_datasets.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/ideas_and_datasets.html">
        Ideas
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/pose_estimation.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/pose_estimation.html">
        Animal Pose Estimation
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/cellular_segmentation.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/cellular_segmentation.html">
        Segmentation and Denoising
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/algonauts_videos.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/algonauts_videos.html">
        Load algonauts videos
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/blurry_vision.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/blurry_vision.html">
        Vision with Lost Glasses: Modelling how the brain deals with noisy input
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/finetuning_fmri.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/finetuning_fmri.html">
        Moving beyond Labels: Finetuning CNNs on BOLD response
       </a>
-</li>
-<li class="toctree-l3">
-<a class="reference internal" href="../../../projects/Neuroscience/neuro_seq_to_seq.html">
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../projects/Neuroscience/neuro_seq_to_seq.html">
        Focus on what matters: inferring low-dimensional dynamics from neural recordings
       </a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1">
-<a class="reference internal" href="../../../projects/docs/datasets_and_models.html">
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../projects/docs/datasets_and_models.html">
    Models and Data sets
   </a>
-</li>
+ </li>
 </ul>
-</div>
+
+    </div>
 </nav></div>
-<div class="bd-sidebar__bottom">
-<!-- To handle the deprecated key -->
-<div class="navbar_extra_footer">
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
             Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
 </div>
-</div>
-</div>
-<div id="rtd-footer-container"></div>
-</div>
+
+
+          
+
+
+          
 <!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
 <!-- Main content -->
 <div class="col py-0 content-container">
-<div class="header-article row sticky-top noprint">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
 <div class="col py-1 d-flex header-article-main">
-<div class="header-article__left">
-<label class="headerbtn" data-placement="right" data-toggle="tooltip" for="__navigation" title="Toggle navigation">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-bars"></i>
-</span>
+  <i class="fas fa-bars"></i>
+  </span>
+
 </label>
-</div>
-<div class="header-article__right">
+
+        
+    </div>
+    <div class="header-article__right">
 <div class="menu-dropdown menu-dropdown-launch-buttons">
-<button aria-label="Launch interactive content" class="headerbtn menu-dropdown__trigger">
-<i class="fas fa-rocket"></i>
-</button>
-<div class="menu-dropdown__content">
-<ul>
-</ul>
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
 </div>
-</div>
-<button class="headerbtn" data-placement="bottom" data-toggle="tooltip" onclick="toggleFullScreen()" title="Fullscreen mode">
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-expand"></i>
-</span>
+  <i class="fas fa-expand"></i>
+  </span>
+
 </button>
+
 <div class="menu-dropdown menu-dropdown-repository-buttons">
-<button aria-label="Source repositories" class="headerbtn menu-dropdown__trigger">
-<i class="fab fa-github"></i>
-</button>
-<div class="menu-dropdown__content">
-<ul>
-<li>
-<a class="headerbtn" data-placement="left" data-toggle="tooltip" href="https://github.com/ContextLab/course-content-dl" title="Source repository">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ContextLab/course-content-dl"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fab fa-github"></i>
-</span>
+  <i class="fab fa-github"></i>
+  </span>
 <span class="headerbtn__text-container">repository</span>
 </a>
-</li>
-<li>
-<a class="headerbtn" data-placement="left" data-toggle="tooltip" href="https://github.com/ContextLab/course-content-dl/issues/new?title=Issue%20on%20page%20%2Ftutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.html&amp;body=Your%20issue%20content%20here." title="Open an issue">
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ContextLab/course-content-dl/issues/new?title=Issue%20on%20page%20%2Ftutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-lightbulb"></i>
-</span>
+  <i class="fas fa-lightbulb"></i>
+  </span>
 <span class="headerbtn__text-container">open issue</span>
 </a>
-</li>
-</ul>
+
+      </li>
+      
+    </ul>
+  </div>
 </div>
-</div>
+
 <div class="menu-dropdown menu-dropdown-download-buttons">
-<button aria-label="Download this page" class="headerbtn menu-dropdown__trigger">
-<i class="fas fa-download"></i>
-</button>
-<div class="menu-dropdown__content">
-<ul>
-<li>
-<a class="headerbtn" data-placement="left" data-toggle="tooltip" href="../../../_sources/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb" title="Download source file">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-file"></i>
-</span>
+  <i class="fas fa-file"></i>
+  </span>
 <span class="headerbtn__text-container">.ipynb</span>
 </a>
-</li>
-<li>
-<button class="headerbtn" data-placement="left" data-toggle="tooltip" onclick="printPdf(this)" title="Print to PDF">
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-file-pdf"></i>
-</span>
+  <i class="fas fa-file-pdf"></i>
+  </span>
 <span class="headerbtn__text-container">.pdf</span>
 </button>
-</li>
-</ul>
+
+      </li>
+      
+    </ul>
+  </div>
 </div>
-</div>
-<label class="headerbtn headerbtn-page-toc" for="__page-toc">
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
 <span class="headerbtn__icon-container">
-<i class="fas fa-list"></i>
-</span>
+  <i class="fas fa-list"></i>
+  </span>
+
 </label>
+
+    </div>
 </div>
-</div>
+
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-<div class="tocsection onthispage pt-5 pb-3">
-<i class="fas fa-list"></i> Contents
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
     </div>
-<nav aria-label="Page" id="bd-toc-nav">
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#">
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Bonus Tutorial: Multilingual Embeddings
   </a>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#tutorial-objectives">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-objectives">
    Tutorial objectives
   </a>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#setup">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
    Setup
   </a>
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-dependencies">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-dependencies">
      Install dependencies
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-and-import-feedback-gadget">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Install dependencies
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-and-import-feedback-gadget">
      Install and import feedback gadget
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-fasttext">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Install and import feedback gadget
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-fasttext">
      Install fastText
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#figure-settings">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Install fastText
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#figure-settings">
      Figure Settings
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#helper-functions">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Figure Settings
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#helper-functions">
      Helper functions
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#set-random-seed">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Helper functions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-random-seed">
      Set random seed
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#set-device-gpu-or-cpu-execute-set-device">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Set random seed
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-device-gpu-or-cpu-execute-set-device">
      Set device (GPU or CPU). Execute
      <code class="docutils literal notranslate">
-<span class="pre">
+      <span class="pre">
        set_device()
       </span>
-</code>
-</a>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#section-1-multilingual-embeddings">
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Set device (GPU or CPU). Execute
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         set_device()
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-multilingual-embeddings">
    Section 1 : Multilingual Embeddings
   </a>
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#training-multilingual-embeddings">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training-multilingual-embeddings">
      Training multilingual embeddings
     </a>
-<ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry">
-<a class="reference internal nav-link" href="#submit-your-feedback">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#submit-your-feedback">
        Submit your feedback
       </a>
-</li>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         Submit your feedback
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
+
+    </nav>
 </div>
-</div>
-<div class="article row">
-<div class="col pl-md-3 pl-lg-5 content-container">
-<!-- Table of contents that is only displayed when printing the page -->
-<div class="onlyprint" id="jb-print-docs-body">
-<h1>Bonus Tutorial: Multilingual Embeddings</h1>
-<!-- Table of contents -->
-<div id="print-main-content">
-<div id="jb-print-toc">
-<div>
-<h2> Contents </h2>
-</div>
-<nav aria-label="Page">
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Bonus Tutorial: Multilingual Embeddings</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Bonus Tutorial: Multilingual Embeddings
   </a>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#tutorial-objectives">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-objectives">
    Tutorial objectives
   </a>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#setup">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
    Setup
   </a>
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-dependencies">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-dependencies">
      Install dependencies
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-and-import-feedback-gadget">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Install dependencies
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-and-import-feedback-gadget">
      Install and import feedback gadget
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#install-fasttext">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Install and import feedback gadget
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-fasttext">
      Install fastText
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#figure-settings">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Install fastText
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#figure-settings">
      Figure Settings
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#helper-functions">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Figure Settings
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#helper-functions">
      Helper functions
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#set-random-seed">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       Helper functions
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-random-seed">
      Set random seed
     </a>
-</li>
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#set-device-gpu-or-cpu-execute-set-device">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       Set random seed
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-device-gpu-or-cpu-execute-set-device">
      Set device (GPU or CPU). Execute
      <code class="docutils literal notranslate">
-<span class="pre">
+      <span class="pre">
        set_device()
       </span>
-</code>
-</a>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry">
-<a class="reference internal nav-link" href="#section-1-multilingual-embeddings">
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id7">
+       Set device (GPU or CPU). Execute
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         set_device()
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-multilingual-embeddings">
    Section 1 : Multilingual Embeddings
   </a>
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry">
-<a class="reference internal nav-link" href="#training-multilingual-embeddings">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training-multilingual-embeddings">
      Training multilingual embeddings
     </a>
-<ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry">
-<a class="reference internal nav-link" href="#submit-your-feedback">
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#submit-your-feedback">
        Submit your feedback
       </a>
-</li>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         Submit your feedback
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<main id="main-content" role="main">
-<div>
-<p><a href="https://colab.research.google.com/github/ContextLab/course-content-dl/blob/main/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg"/></a>   <a href="https://kaggle.com/kernels/welcome?src=https://raw.githubusercontent.com/ContextLab/course-content-dl/main/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb" target="_blank"><img alt="Open in Kaggle" src="https://kaggle.com/static/images/open-in-kaggle.svg"/></a></p>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <p><a href="https://colab.research.google.com/github/ContextLab/course-content-dl/blob/main/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>   <a href="https://kaggle.com/kernels/welcome?src=https://raw.githubusercontent.com/ContextLab/course-content-dl/main/tutorials/W3D1_TimeSeriesAndNaturalLanguageProcessing/student/W3D1_Tutorial3.ipynb" target="_blank"><img alt="Open in Kaggle" src="https://kaggle.com/static/images/open-in-kaggle.svg" /></a></p>
 <div class="section" id="bonus-tutorial-multilingual-embeddings">
 <h1>Bonus Tutorial: Multilingual Embeddings<a class="headerlink" href="#bonus-tutorial-multilingual-embeddings" title="Permalink to this headline">¶</a></h1>
 <p><strong>Week 3, Day 1: Time Series And Natural Language Processing</strong></p>
@@ -1116,44 +1353,38 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong>Content reviewers:</strong> Kelson Shilling-Scrivo</p>
 <p><strong>Content editors:</strong> Kelson Shilling-Scrivo</p>
 <p><strong>Production editors:</strong> Gagana B, Spiros Chavlis</p>
-<br/>
+<br>
 <p><em>Based on Content from: Anushree Hede, Pooja Consul, Ann-Katrin Reuel</em></p>
 </div>
-<hr class="docutils"/>
+<hr class="docutils" />
 <div class="section" id="tutorial-objectives">
 <h1>Tutorial objectives<a class="headerlink" href="#tutorial-objectives" title="Permalink to this headline">¶</a></h1>
 <p>Before we begin with exploring how RNNs excel at modelling sequences, we will explore some of the other ways we can model sequences, encode text, and make meaningful measurements using such encodings and embeddings.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "af17de04e4ba42ae996680e83866918c"}
+{"version_major": 2, "version_minor": 0, "model_id": "9871ea2760044145a9cc1a066dc00a65"}
 </script></div>
 </div>
 </div>
-<hr class="docutils"/>
+<hr class="docutils" />
 <div class="section" id="setup">
 <h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
 <p><strong>⚠ Experimental LLM-enhanced tutorial ⚠</strong></p>
 <p>This notebook includes Neuromatch’s experimental <a class="reference external" href="https://github.com/ContextLab/chatify">Chatify</a> 🤖 functionality. The Chatify notebook extension adds support for a large language model-based “coding tutor” to the materials. The tutor provides automatically generated text to help explain any code cell in this notebook.</p>
 <p>Note that using Chatify may cause breaking changes and/or provide incorrect or misleading information. If you wish to proceed by installing and enabling the Chatify extension, you should run the next two code blocks (hidden by default). If you do <em>not</em> want to use this experimental version of the NeuroMatch materials, please use the <a class="reference external" href="https://compneuro.neuromatch.io/tutorials/intro.html">stable</a> materials instead.</p>
 <p>To use the Chatify helper, insert the <code class="docutils literal notranslate"><span class="pre">%%explain</span></code> magic command at the start of any code cell and then run it (shift + enter) to access an interface for receiving LLM-based assitance. You can then select a “level” of explanation from the dropdown menu, depending on how much help you’d like.  To disable Chatify and run the code block as usual, simply delete the <code class="docutils literal notranslate"><span class="pre">%%explain</span></code> command and re-run the cell.</p>
-<p>In its default configuration for this alpha release, we’ve set up Chatify to use cached responses for each code block. This means you’ll see the same response every time you ask for an explanation about a given code block, at a given level of explanation. If you have an <a class="reference external" href="https://openai.com/blog/openai-api">OpenAI API key</a>, you may be interested in using a more interactive version of Chatify. Instructions for enabling custom queries and support for notebooks beyond the Neuromatch tutorials may be found <a class="reference external" href="https://github.com/ContextLab/chatify">here</a>.</p>
 <p>Thanks for giving Chatify a try! Love it? Hate it? Either way, we’d love to hear from you about your Chatify experience!  Please consider filling out our <a class="reference external" href="https://forms.gle/jNq85KVvNwj1JHZV9">brief survey</a> to provide feedback and help us make Chatify more awesome!</p>
 <p><strong>Run the next two cells to install and configure Chatify…</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install davos
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q davos
 <span class="kn">import</span> <span class="nn">davos</span>
 <span class="n">davos</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">suppress_stdout</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: davos in /Users/jmanning/opt/anaconda3/envs/nma-course/lib/python3.9/site-packages (0.1.1)
-Requirement already satisfied: packaging in /Users/jmanning/opt/anaconda3/envs/nma-course/lib/python3.9/site-packages (from davos) (23.1)
-Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/nma-course/lib/python3.9/site-packages (from davos) (67.8.0)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
@@ -1166,9 +1397,18 @@ Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using default configuration!
+Downloading the &#39;cache&#39; file.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="install-dependencies">
 <h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There may be <em>errors</em> and/or <em>warnings</em> reported during the installation. However, they are to be ignored.</p>
+<div class="section" id="id1">
+<h3>Install dependencies<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>There may be <em>errors</em> and/or <em>warnings</em> reported during the installation. However, they are to be ignored.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1180,8 +1420,11 @@ Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="install-and-import-feedback-gadget">
 <h2>Install and import feedback gadget<a class="headerlink" href="#install-and-import-feedback-gadget" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Install and import feedback gadget<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Install and import feedback gadget</span>
@@ -1191,24 +1434,28 @@ Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/
 <span class="kn">from</span> <span class="nn">vibecheck</span> <span class="kn">import</span> <span class="n">DatatopsContentReviewContainer</span>
 <span class="k">def</span> <span class="nf">content_review</span><span class="p">(</span><span class="n">notebook_section</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">DatatopsContentReviewContainer</span><span class="p">(</span>
-        <span class="s2">""</span><span class="p">,</span>  <span class="c1"># No text prompt</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># No text prompt</span>
         <span class="n">notebook_section</span><span class="p">,</span>
         <span class="p">{</span>
-            <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://pmyvdlilci.execute-api.us-east-1.amazonaws.com/klab"</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"neuromatch_dl"</span><span class="p">,</span>
-            <span class="s2">"user_key"</span><span class="p">:</span> <span class="s2">"f379rz8y"</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pmyvdlilci.execute-api.us-east-1.amazonaws.com/klab&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;neuromatch_dl&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;user_key&quot;</span><span class="p">:</span> <span class="s2">&quot;f379rz8y&quot;</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
 
-<span class="n">feedback_prefix</span> <span class="o">=</span> <span class="s2">"W3D1_T3_Bonus"</span>
+<span class="n">feedback_prefix</span> <span class="o">=</span> <span class="s2">&quot;W3D1_T3_Bonus&quot;</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="install-fasttext">
 <h2>Install fastText<a class="headerlink" href="#install-fasttext" title="Permalink to this headline">¶</a></h2>
+<p>If you want to see the original code, go to repo: https://github.com/facebookresearch/fastText.git</p>
+<div class="section" id="id3">
+<h3>Install fastText<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>If you want to see the original code, go to repo: https://github.com/facebookresearch/fastText.git</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1219,24 +1466,24 @@ Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">zipfile</span><span class="o">,</span> <span class="nn">requests</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://osf.io/vkuz7/download"</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s2">"fastText-main.zip"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://osf.io/vkuz7/download&quot;</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;fastText-main.zip&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Started...'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Started...&#39;</span><span class="p">)</span>
 <span class="c1"># Downloading the file by sending the request to the URL</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Writing the file to the local file system</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Completed.'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Completed.&#39;</span><span class="p">)</span>
 
 <span class="c1"># opening the zip file in READ mode</span>
-<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
   <span class="c1"># extracting all the files</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting all the files now...'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extracting all the files now...&#39;</span><span class="p">)</span>
   <span class="n">zipObj</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Done!'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
   <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
 <span class="c1"># Install the package</span>
@@ -1249,8 +1496,35 @@ Requirement already satisfied: setuptools in /Users/jmanning/opt/anaconda3/envs/
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Completed.
-Extracting all the files now...
-Done!
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">BadZipFile</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Completed.&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># opening the zip file in READ mode</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>   <span class="c1"># extracting all the files</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extracting all the files now...&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>   <span class="n">zipObj</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/nma-course/lib/python3.9/zipfile.py:1266,</span> in <span class="ni">ZipFile.__init__</span><span class="nt">(self, file, mode, compression, allowZip64, compresslevel, strict_timestamps)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1264</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1265</span>     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1266</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_RealGetContents</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1267</span>     <span class="k">elif</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1268</span>         <span class="c1"># set the modified flag so central directory gets written</span>
+<span class="g g-Whitespace">   </span><span class="mi">1269</span>         <span class="c1"># even if no files are added to the archive</span>
+<span class="g g-Whitespace">   </span><span class="mi">1270</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_didModify</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/nma-course/lib/python3.9/zipfile.py:1333,</span> in <span class="ni">ZipFile._RealGetContents</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1331</span>     <span class="k">raise</span> <span class="n">BadZipFile</span><span class="p">(</span><span class="s2">&quot;File is not a zip file&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1332</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">endrec</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1333</span>     <span class="k">raise</span> <span class="n">BadZipFile</span><span class="p">(</span><span class="s2">&quot;File is not a zip file&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1334</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1335</span>     <span class="nb">print</span><span class="p">(</span><span class="n">endrec</span><span class="p">)</span>
+
+<span class="ne">BadZipFile</span>: File is not a zip file
 </pre></div>
 </div>
 </div>
@@ -1267,30 +1541,36 @@ Done!
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="figure-settings">
 <h2>Figure Settings<a class="headerlink" href="#figure-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Figure Settings<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Figure Settings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'matplotlib.font_manager'</span><span class="p">)</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;matplotlib.font_manager&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/NeuromatchAcademy/content-creation/main/nma.mplstyle"</span><span class="p">)</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/NeuromatchAcademy/content-creation/main/nma.mplstyle&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="helper-functions">
 <h2>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Helper functions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Helper functions</span>
 <span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">vec_a</span><span class="p">,</span> <span class="n">vec_b</span><span class="p">):</span>
-<span class="w">  </span><span class="sd">"""Compute cosine similarity between vec_a and vec_b"""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Compute cosine similarity between vec_a and vec_b&quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_a</span><span class="p">,</span> <span class="n">vec_b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vec_a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vec_b</span><span class="p">))</span>
 
 
@@ -1303,8 +1583,12 @@ Done!
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="set-random-seed">
 <h2>Set random seed<a class="headerlink" href="#set-random-seed" title="Permalink to this headline">¶</a></h2>
+<p>Executing <code class="docutils literal notranslate"><span class="pre">set_seed(seed=seed)</span></code> you are setting the seed</p>
+<div class="section" id="id6">
+<h3>Set random seed<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Executing <code class="docutils literal notranslate"><span class="pre">set_seed(seed=seed)</span></code> you are setting the seed</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1321,7 +1605,7 @@ Done!
 <span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="k">def</span> <span class="nf">set_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed_torch</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">  </span><span class="sd">"""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Function that controls randomness.</span>
 <span class="sd">  NumPy and random modules must be imported.</span>
 
@@ -1334,7 +1618,7 @@ Done!
 
 <span class="sd">  Returns:</span>
 <span class="sd">    Nothing.</span>
-<span class="sd">  """</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">seed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">32</span><span class="p">)</span>
   <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
@@ -1346,11 +1630,11 @@ Done!
     <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>
 
-  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Random seed </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s1"> has been set.'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random seed </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s1"> has been set.&#39;</span><span class="p">)</span>
 
 <span class="c1"># In case that `DataLoader` is used</span>
 <span class="k">def</span> <span class="nf">seed_worker</span><span class="p">(</span><span class="n">worker_id</span><span class="p">):</span>
-<span class="w">  </span><span class="sd">"""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  DataLoader will reseed workers following randomness in</span>
 <span class="sd">  multi-process data loading algorithm.</span>
 
@@ -1362,7 +1646,7 @@ Done!
 
 <span class="sd">  Returns:</span>
 <span class="sd">    Nothing</span>
-<span class="sd">  """</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">worker_seed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">initial_seed</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span>
   <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">worker_seed</span><span class="p">)</span>
   <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">worker_seed</span><span class="p">)</span>
@@ -1371,8 +1655,11 @@ Done!
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="set-device-gpu-or-cpu-execute-set-device">
 <h2>Set device (GPU or CPU). Execute <code class="docutils literal notranslate"><span class="pre">set_device()</span></code><a class="headerlink" href="#set-device-gpu-or-cpu-execute-set-device" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Set device (GPU or CPU). Execute <code class="docutils literal notranslate"><span class="pre">set_device()</span></code><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Set device (GPU or CPU). Execute `set_device()`</span>
@@ -1380,7 +1667,7 @@ Done!
 <span class="c1"># Inform the user if the notebook uses GPU or CPU.</span>
 
 <span class="k">def</span> <span class="nf">set_device</span><span class="p">():</span>
-<span class="w">  </span><span class="sd">"""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Set the device. CUDA if available, CPU otherwise</span>
 
 <span class="sd">  Args:</span>
@@ -1388,14 +1675,14 @@ Done!
 
 <span class="sd">  Returns:</span>
 <span class="sd">    Nothing</span>
-<span class="sd">  """</span>
-  <span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span>
-  <span class="k">if</span> <span class="n">device</span> <span class="o">!=</span> <span class="s2">"cuda"</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"WARNING: For this notebook to perform best, "</span>
-        <span class="s2">"if possible, in the menu under `Runtime` -&gt; "</span>
-        <span class="s2">"`Change runtime type.`  select `GPU` "</span><span class="p">)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+  <span class="k">if</span> <span class="n">device</span> <span class="o">!=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: For this notebook to perform best, &quot;</span>
+        <span class="s2">&quot;if possible, in the menu under `Runtime` -&gt; &quot;</span>
+        <span class="s2">&quot;`Change runtime type.`  select `GPU` &quot;</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"GPU is enabled in this notebook."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GPU is enabled in this notebook.&quot;</span><span class="p">)</span>
 
   <span class="k">return</span> <span class="n">device</span>
 </pre></div>
@@ -1419,7 +1706,8 @@ Random seed 2021 has been set.
 </div>
 </div>
 </div>
-<hr class="docutils"/>
+</div>
+<hr class="docutils" />
 <div class="section" id="section-1-multilingual-embeddings">
 <h1>Section 1 : Multilingual Embeddings<a class="headerlink" href="#section-1-multilingual-embeddings" title="Permalink to this headline">¶</a></h1>
 <p>Traditionally, word embeddings have been language-specific, with embeddings for each language trained separately and existing in entirely different vector spaces. But, what if we wanted to compare words in one language to another? Say we want to create a text classifier with a corpus of English and Spanish words.</p>
@@ -1428,8 +1716,8 @@ Random seed 2021 has been set.
 <h2>Training multilingual embeddings<a class="headerlink" href="#training-multilingual-embeddings" title="Permalink to this headline">¶</a></h2>
 <p>We first train separate embeddings for each language using fastText and a combination of data from Facebook and Wikipedia. Then, we find a dictionary of common words between the two languages. The dictionaries are automatically induced from parallel data - datasets consisting of a pair of sentences in two languages with the same meaning.</p>
 <p>Then, we find a matrix that projects the embeddings into a common space between the given languages. The matrix is designed to minimize the distance between a word <span class="math notranslate nohighlight">\(x_i\)</span> and its projection <span class="math notranslate nohighlight">\(y_i\)</span>. If our dictionary consists of pairs <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, our projector <span class="math notranslate nohighlight">\(M\)</span> would be:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2b4ead7c-ccba-491e-a2b6-bfa045ceb85e">
-<span class="eqno">(121)<a class="headerlink" href="#equation-2b4ead7c-ccba-491e-a2b6-bfa045ceb85e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-aed4bb6a-426a-4e5f-9f99-e72ba2739d1e">
+<span class="eqno">(121)<a class="headerlink" href="#equation-aed4bb6a-426a-4e5f-9f99-e72ba2739d1e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 M = \underset{W}{\operatorname{argmax}} \sum_i ||x_i - Wy_i||^2
 \end{equation}\]</div>
 <p>Also, the projector matrix <span class="math notranslate nohighlight">\(W\)</span> is constrained to e orthogonal, so actual distances between word embedding vectors are preserved. Multilingual models are trained by using our multilingual word embeddings as the base representations in DeepText and “freezing” them or leaving them unchanged during the training process.</p>
@@ -1441,24 +1729,24 @@ M = \underset{W}{\operatorname{argmax}} \sum_i ||x_i - Wy_i||^2
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">zipfile</span><span class="o">,</span> <span class="nn">requests</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://osf.io/2frqg/download"</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s2">"cc.en.100.bin.gz"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://osf.io/2frqg/download&quot;</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;cc.en.100.bin.gz&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Started...'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Started...&#39;</span><span class="p">)</span>
 <span class="c1"># Downloading the file by sending the request to the URL</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Writing the file to the local file system</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Completed.'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Completed.&#39;</span><span class="p">)</span>
 
 <span class="c1"># opening the zip file in READ mode</span>
-<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
   <span class="c1"># extracting all the files</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting all the files now...'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extracting all the files now...&#39;</span><span class="p">)</span>
   <span class="n">zipObj</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Done!'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
   <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1479,7 +1767,7 @@ Extracting all the files now...
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load 100 dimension FastText Vectors using FastText library</span>
-<span class="n">ft_en_vectors</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">'cc.en.100.bin'</span><span class="p">)</span>
+<span class="n">ft_en_vectors</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;cc.en.100.bin&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1492,24 +1780,24 @@ Extracting all the files now...
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">zipfile</span><span class="o">,</span> <span class="nn">requests</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://osf.io/rqadk/download"</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s2">"cc.fr.100.bin.gz"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://osf.io/rqadk/download&quot;</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;cc.fr.100.bin.gz&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Started...'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Started...&#39;</span><span class="p">)</span>
 <span class="c1"># Downloading the file by sending the request to the URL</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Writing the file to the local file system</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Downloading Completed.'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloading Completed.&#39;</span><span class="p">)</span>
 
 <span class="c1"># opening the zip file in READ mode</span>
-<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zipObj</span><span class="p">:</span>
   <span class="c1"># extracting all the files</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Extracting all the files now...'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extracting all the files now...&#39;</span><span class="p">)</span>
   <span class="n">zipObj</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">'Done!'</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
   <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1530,7 +1818,7 @@ Extracting all the files now...
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load 100 dimension FastText Vectors using FastText library</span>
-<span class="n">french</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">'cc.fr.100.bin'</span><span class="p">)</span>
+<span class="n">french</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;cc.fr.100.bin&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1538,12 +1826,12 @@ Extracting all the files now...
 <p>First, we look at the cosine similarity between different languages without projecting them into the same vector space. As you can see, the same words seem close to <span class="math notranslate nohighlight">\(0\)</span> cosine similarity in other languages - so neither similar nor dissimilar.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'hi'</span><span class="p">)</span>
-<span class="n">bonjour</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'bonjour'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="n">hi</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span>
+<span class="n">bonjour</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;bonjour&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between HI and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">hi</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between BONJOUR and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">bonjour</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between HI and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">hi</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between BONJOUR and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">bonjour</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1556,13 +1844,13 @@ Cosine Similarity between BONJOUR and HELLO: 0.20523206889629364
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'cat'</span><span class="p">)</span>
-<span class="n">chatte</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'chatte'</span><span class="p">)</span>
-<span class="n">chat</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'chat'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">)</span>
+<span class="n">chatte</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;chatte&#39;</span><span class="p">)</span>
+<span class="n">chat</span> <span class="o">=</span> <span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between cat and chatte: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chatte</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between cat and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between chatte and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">chatte</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between cat and chatte: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chatte</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between cat and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between chatte and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">chatte</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1603,18 +1891,18 @@ Cosine Similarity between chatte and chat: 0.6003134846687317
 
 <span class="c1"># from https://stackoverflow.com/questions/21030391/how-to-normalize-array-numpy</span>
 <span class="k">def</span> <span class="nf">normalized</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-<span class="w">  </span><span class="sd">"""Utility function to normalize the rows of a numpy array."""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Utility function to normalize the rows of a numpy array.&quot;&quot;&quot;</span>
   <span class="n">l2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">))</span>
   <span class="n">l2</span><span class="p">[</span><span class="n">l2</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
   <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">l2</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">learn_transformation</span><span class="p">(</span><span class="n">source_matrix</span><span class="p">,</span> <span class="n">target_matrix</span><span class="p">,</span> <span class="n">normalize_vectors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">  </span><span class="sd">"""</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Source and target matrices are numpy arrays, shape</span>
 <span class="sd">  (dictionary_length, embedding_dimension). These contain paired</span>
 <span class="sd">  word vectors from the bilingual dictionary.</span>
-<span class="sd">  """</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="c1"># optionally normalize the training vectors</span>
   <span class="k">if</span> <span class="n">normalize_vectors</span><span class="p">:</span>
     <span class="n">source_matrix</span> <span class="o">=</span> <span class="n">normalized</span><span class="p">(</span><span class="n">source_matrix</span><span class="p">)</span>
@@ -1648,38 +1936,38 @@ Cosine Similarity between chatte and chat: 0.6003134846687317
 <p>Let’s run the same examples as above, but this time, whenever we use French words, the matrix multiplies the embedding by the transpose of the transform matrix. That works a lot better!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'hi'</span><span class="p">)</span>
-<span class="n">bonjour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'bonjour'</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="n">hi</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span>
+<span class="n">bonjour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;bonjour&#39;</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between HI and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">hi</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between BONJOUR and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">bonjour</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between HI and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">hi</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between BONJOUR and HELLO: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">hello</span><span class="p">,</span><span class="w"> </span><span class="n">bonjour</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cosine Similarity between HI and HELLO: 0.7028388381004333
-Cosine Similarity between BONJOUR and HELLO: 0.581859827041626
+Cosine Similarity between BONJOUR and HELLO: 0.5818595886230469
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'cat'</span><span class="p">)</span>
-<span class="n">chatte</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'chatte'</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="n">chat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">'chat'</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">ft_en_vectors</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">)</span>
+<span class="n">chatte</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;chatte&#39;</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">chat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">french</span><span class="o">.</span><span class="n">get_word_vector</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">),</span> <span class="n">transform</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between cat and chatte: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chatte</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between cat and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cosine Similarity between chatte and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">chatte</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between cat and chatte: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chatte</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between cat and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cosine Similarity between chatte and chat: </span><span class="si">{</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">chatte</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cosine Similarity between cat and chatte: 0.43272748589515686
-Cosine Similarity between cat and chat: 0.6866633296012878
-Cosine Similarity between chatte and chat: 0.6003134846687317
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cosine Similarity between cat and chatte: 0.43272721767425537
+Cosine Similarity between cat and chat: 0.6866634488105774
+Cosine Similarity between chatte and chat: 0.6003134250640869
 </pre></div>
 </div>
 </div>
@@ -1687,25 +1975,32 @@ Cosine Similarity between chatte and chat: 0.6003134846687317
 <p>Now, try a couple of your examples. Try some examples you looked at in Tutorial 1, Section 2.1, but with English and French. Does it work as expected?</p>
 <div class="section" id="submit-your-feedback">
 <h3>Submit your feedback<a class="headerlink" href="#submit-your-feedback" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>Submit your feedback<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Submit your feedback</span>
-<span class="n">content_review</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">feedback_prefix</span><span class="si">}</span><span class="s2">_Multilingual_Embeddings_Bonus_Activity"</span><span class="p">)</span>
+<span class="n">content_review</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feedback_prefix</span><span class="si">}</span><span class="s2">_Multilingual_Embeddings_Bonus_Activity&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "ec9cff5d24fb4a79924e46f4d1ca2e4a"}
+{"version_major": 2, "version_minor": 0, "model_id": "e03671ec0a874f4681285fe64d8e8b83"}
 </script></div>
 </div>
 </div>
 </div>
 </div>
+</div>
+
+
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"7ca1c7ed9efd45fb95934dc3c260cdf5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "af17de04e4ba42ae996680e83866918c": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_7ca1c7ed9efd45fb95934dc3c260cdf5", "msg_id": "", "outputs": [{"output_type": "stream", "name": "stdout", "text": "If you want to download the slides: https://osf.io/download/n263c/\n"}, {"output_type": "display_data", "metadata": {}, "data": {"text/plain": "<IPython.lib.display.IFrame at 0x1057fba00>", "text/html": "\n        <iframe\n            width=\"730\"\n            height=\"410\"\n            src=\"https://mfr.ca-1.osf.io/render?url=https://osf.io/n263c/?direct%26mode=render%26action=download%26mode=render\"\n            frameborder=\"0\"\n            allowfullscreen\n            \n        ></iframe>\n        "}}]}}, "1d73740530ad414d8cab40d840161934": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "411027d0f28444b5aa7f2f6e09a65c10": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#aaffaa", "font_weight": ""}}, "05078a0009954b0ba5f91bfa9247e2cc": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["happy"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude42", "disabled": false, "icon": "", "layout": "IPY_MODEL_1d73740530ad414d8cab40d840161934", "style": "IPY_MODEL_411027d0f28444b5aa7f2f6e09a65c10", "tooltip": "Happy"}}, "9dfd8a950f56497abc7458fbf3f55f31": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "406f61ab02fa45aead11f21cbc5d8c97": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#dddd77", "font_weight": ""}}, "715a8e4e04c14555a46bc953e735e098": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["medium"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude10", "disabled": false, "icon": "", "layout": "IPY_MODEL_9dfd8a950f56497abc7458fbf3f55f31", "style": "IPY_MODEL_406f61ab02fa45aead11f21cbc5d8c97", "tooltip": "Medium"}}, "a85aefab3e5145ceb4ccbdaed836203b": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "11f25a1028d746e7b28ff7695c6f0282": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#ffaaaa", "font_weight": ""}}, "b7748b81d8d24ef1a3f76c8cc50b3274": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["sad"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude41", "disabled": false, "icon": "", "layout": "IPY_MODEL_a85aefab3e5145ceb4ccbdaed836203b", "style": "IPY_MODEL_11f25a1028d746e7b28ff7695c6f0282", "tooltip": "Sad"}}, "69db5cf216b24192b7f5373693603a0d": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "08c88f08916848909f04013166d50297": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "10fd58fbb609481086ce8583c77a57ee": {"model_name": "TextareaModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "TextareaModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "TextareaView", "continuous_update": true, "description": "", "description_tooltip": null, "disabled": false, "layout": "IPY_MODEL_69db5cf216b24192b7f5373693603a0d", "placeholder": "We want your feedback!", "rows": null, "style": "IPY_MODEL_08c88f08916848909f04013166d50297", "value": ""}}, "f9322fd6b5894ac1a7e44d7905acec77": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "df727b540a994fba950f45436dddee2f": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": null, "font_weight": ""}}, "cd8dcdb1ec0f4d679078681291e01810": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "Submit", "disabled": false, "icon": "", "layout": "IPY_MODEL_f9322fd6b5894ac1a7e44d7905acec77", "style": "IPY_MODEL_df727b540a994fba950f45436dddee2f", "tooltip": ""}}, "b0230243483b421aa757ff0eda108936": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": "none", "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "451efd5113ea44838c200c481818ad28": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_10fd58fbb609481086ce8583c77a57ee", "IPY_MODEL_cd8dcdb1ec0f4d679078681291e01810"], "layout": "IPY_MODEL_b0230243483b421aa757ff0eda108936"}}, "a3cf129ac4164ba8bd51da64117d2be7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": "none", "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1e261c6e8e194795978413d8f6805bef": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c7caad6ff98345db87d4995dd37edd8d": {"model_name": "LabelModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "LabelModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "LabelView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_a3cf129ac4164ba8bd51da64117d2be7", "placeholder": "\u200b", "style": "IPY_MODEL_1e261c6e8e194795978413d8f6805bef", "value": "Thanks for your feedback!"}}, "fb27e1f997c947e2bb83b8401c1712e5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cc045d924b054e65b1a7f2f8241dd27a": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "7c889e48cfcb4681b73a32c465d3a4b6": {"model_name": "LabelModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "LabelModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "LabelView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_fb27e1f997c947e2bb83b8401c1712e5", "placeholder": "\u200b", "style": "IPY_MODEL_cc045d924b054e65b1a7f2f8241dd27a", "value": ""}}, "392cb34dcb6d42d2866133ca37dfcfe1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "df08685a85014619b28c14d046e9c6f9": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_05078a0009954b0ba5f91bfa9247e2cc", "IPY_MODEL_715a8e4e04c14555a46bc953e735e098", "IPY_MODEL_b7748b81d8d24ef1a3f76c8cc50b3274"], "layout": "IPY_MODEL_392cb34dcb6d42d2866133ca37dfcfe1"}}, "81726014ac344974ada7f583a93ebaae": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "ec9cff5d24fb4a79924e46f4d1ca2e4a": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_7c889e48cfcb4681b73a32c465d3a4b6", "IPY_MODEL_df08685a85014619b28c14d046e9c6f9", "IPY_MODEL_451efd5113ea44838c200c481818ad28", "IPY_MODEL_c7caad6ff98345db87d4995dd37edd8d"], "layout": "IPY_MODEL_81726014ac344974ada7f583a93ebaae"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"96d5a3fe68cb4bfb84890625d8d98157": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9871ea2760044145a9cc1a066dc00a65": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_96d5a3fe68cb4bfb84890625d8d98157", "msg_id": "", "outputs": [{"output_type": "stream", "name": "stdout", "text": "If you want to download the slides: https://osf.io/download/n263c/\n"}, {"output_type": "display_data", "metadata": {}, "data": {"text/plain": "<IPython.lib.display.IFrame at 0x106573580>", "text/html": "\n        <iframe\n            width=\"730\"\n            height=\"410\"\n            src=\"https://mfr.ca-1.osf.io/render?url=https://osf.io/n263c/?direct%26mode=render%26action=download%26mode=render\"\n            frameborder=\"0\"\n            allowfullscreen\n            \n        ></iframe>\n        "}}]}}, "cb1b3f6d36b24375bea0c5d9dadd5fef": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "1a9ef95654f241f0ad0a1fc537b6b6c2": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#aaffaa", "font_weight": ""}}, "a217761171834b628fef0aa6f8a0ce14": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["happy"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude42", "disabled": false, "icon": "", "layout": "IPY_MODEL_cb1b3f6d36b24375bea0c5d9dadd5fef", "style": "IPY_MODEL_1a9ef95654f241f0ad0a1fc537b6b6c2", "tooltip": "Happy"}}, "4180071648894b89ac28359b29d166b2": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "d52cb50a7d3d493a9f0493e3e0d1690a": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#dddd77", "font_weight": ""}}, "3b2740217cc3467d883cb2a6d87b332d": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["medium"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude10", "disabled": false, "icon": "", "layout": "IPY_MODEL_4180071648894b89ac28359b29d166b2", "style": "IPY_MODEL_d52cb50a7d3d493a9f0493e3e0d1690a", "tooltip": "Medium"}}, "2ec79ee37fe54afb8ca445df2fa09b73": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "6da1da1abf594411ad5d857c734c3677": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": "#ffaaaa", "font_weight": ""}}, "77334516f1ac4159b79d902cb2d40d85": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["sad"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "\ud83d\ude41", "disabled": false, "icon": "", "layout": "IPY_MODEL_2ec79ee37fe54afb8ca445df2fa09b73", "style": "IPY_MODEL_6da1da1abf594411ad5d857c734c3677", "tooltip": "Sad"}}, "938ef0693323424fbbae56538c9348f1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "f87a1d7f2403468eaa17b0d0eb635953": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "b00cdfe38e7c46c0977d8aaddbf45d58": {"model_name": "TextareaModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "TextareaModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "TextareaView", "continuous_update": true, "description": "", "description_tooltip": null, "disabled": false, "layout": "IPY_MODEL_938ef0693323424fbbae56538c9348f1", "placeholder": "We want your feedback!", "rows": null, "style": "IPY_MODEL_f87a1d7f2403468eaa17b0d0eb635953", "value": ""}}, "f4e65c1920294cebb2e828625bfc0c4a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": "auto", "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": "auto"}}, "6de72cda3848401d8a2819d9ae5dc1b0": {"model_name": "ButtonStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": null, "font_weight": ""}}, "083e81d13db843abbddeaf79c7fb4ffd": {"model_name": "ButtonModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "Submit", "disabled": false, "icon": "", "layout": "IPY_MODEL_f4e65c1920294cebb2e828625bfc0c4a", "style": "IPY_MODEL_6de72cda3848401d8a2819d9ae5dc1b0", "tooltip": ""}}, "31954649ea894bbdb9bdfa6ece906834": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": "none", "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6fe7fb6121c844c2a7848be5a0ebefe2": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_b00cdfe38e7c46c0977d8aaddbf45d58", "IPY_MODEL_083e81d13db843abbddeaf79c7fb4ffd"], "layout": "IPY_MODEL_31954649ea894bbdb9bdfa6ece906834"}}, "f4ad2be170ec4e4cb235bec522b23952": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": "none", "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c901e8fdcdac41dc8a1796327050ecb7": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "e42ab2cbea2d4297a20faa7fdebc02dc": {"model_name": "LabelModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "LabelModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "LabelView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_f4ad2be170ec4e4cb235bec522b23952", "placeholder": "\u200b", "style": "IPY_MODEL_c901e8fdcdac41dc8a1796327050ecb7", "value": "Thanks for your feedback!"}}, "555f4cb73a4b483bb486874ccb848402": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2526f5333b7040318ed16d86d68c462d": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "ab833153ac184fc8ab8cb7d80b143a9b": {"model_name": "LabelModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "LabelModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "LabelView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_555f4cb73a4b483bb486874ccb848402", "placeholder": "\u200b", "style": "IPY_MODEL_2526f5333b7040318ed16d86d68c462d", "value": ""}}, "2b761eab4dec4ec2b7cf6d2545d1e81e": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b633464e9f784d4eb9740e3f1c40a33f": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_a217761171834b628fef0aa6f8a0ce14", "IPY_MODEL_3b2740217cc3467d883cb2a6d87b332d", "IPY_MODEL_77334516f1ac4159b79d902cb2d40d85"], "layout": "IPY_MODEL_2b761eab4dec4ec2b7cf6d2545d1e81e"}}, "4f2d66c8c60449b99d7612e55f13346a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e03671ec0a874f4681285fe64d8e8b83": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_ab833153ac184fc8ab8cb7d80b143a9b", "IPY_MODEL_b633464e9f784d4eb9740e3f1c40a33f", "IPY_MODEL_6fe7fb6121c844c2a7848be5a0ebefe2", "IPY_MODEL_e42ab2cbea2d4297a20faa7fdebc02dc"], "layout": "IPY_MODEL_4f2d66c8c60449b99d7612e55f13346a"}}}, "version_major": 2, "version_minor": 0}
 </script>
-<script type="text/x-thebe-config">
+
+
+    <script type="text/x-thebe-config">
     {
         requestKernel: true,
         binderOptions: {
@@ -1723,49 +2018,60 @@ Cosine Similarity between chatte and chat: 0.6003134846687317
         predefinedOutput: true
     }
     </script>
-<script>kernelName = 'python3'</script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="W3D1_Tutorial2.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Tutorial 2: Natural Language Processing and LLMs</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../../W3D2_DlThinking2/chapter_title.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dl Thinking2</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-</main>
-<footer class="footer-article noprint">
-<!-- Previous / next buttons -->
-<div class="prev-next-area">
-<a class="left-prev" href="W3D1_Tutorial2.html" id="prev-link" title="previous page">
-<i class="fas fa-angle-left"></i>
-<div class="prev-next-info">
-<p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Tutorial 2: Natural Language Processing and LLMs</p>
-</div>
-</a>
-<a class="right-next" href="../../W3D2_DlThinking2/chapter_title.html" id="next-link" title="next page">
-<div class="prev-next-info">
-<p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Dl Thinking2</p>
-</div>
-<i class="fas fa-angle-right"></i>
-</a>
-</div>
-</footer>
-</div>
-</div>
-<div class="footer-content row">
-<footer class="col footer"><p>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
   
-    By Neuromatch<br>
-<div class="extra_footer">
-<div>
-<a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></a>
-<a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://camo.githubusercontent.com/9b9ea65d95c9ef878afa1987df65731d47681336/68747470733a2f2f696d672e736869656c64732e696f2f707970692f6c2f736561626f726e2e737667"/></a>
+    By Neuromatch<br/>
+  
+    <div class="extra_footer">
+      <div>
+<a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a>
+<a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://camo.githubusercontent.com/9b9ea65d95c9ef878afa1987df65731d47681336/68747470733a2f2f696d672e736869656c64732e696f2f707970692f6c2f736561626f726e2e737667"></a>
 The contents of this repository are shared under under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 Software elements are additionally licensed under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD (3-Clause) License</a>.
 </div>
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
 </div>
-</br></p>
-</footer>
-</div>
-</div>
-</div>
-</div>
-<!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-</body>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
 </html>

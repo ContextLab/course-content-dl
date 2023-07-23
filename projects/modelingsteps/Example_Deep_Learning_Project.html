@@ -1060,16 +1060,37 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#figure-settings">
      Figure settings
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Figure settings
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#plotting-functions">
      Plotting functions
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Plotting functions
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-retrieval">
      Data retrieval
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Data retrieval
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -1180,16 +1201,37 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#figure-settings">
      Figure settings
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Figure settings
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#plotting-functions">
      Plotting functions
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Plotting functions
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-retrieval">
      Data retrieval
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Data retrieval
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -1324,6 +1366,8 @@ title="Print to PDF"
 </div>
 <div class="section" id="figure-settings">
 <h2>Figure settings<a class="headerlink" href="#figure-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Figure settings<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Figure settings</span>
@@ -1336,8 +1380,11 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="plotting-functions">
 <h2>Plotting functions<a class="headerlink" href="#plotting-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Plotting functions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title Plotting functions</span>
@@ -1363,8 +1410,12 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="data-retrieval">
 <h2>Data retrieval<a class="headerlink" href="#data-retrieval" title="Permalink to this headline">¶</a></h2>
+<p>Run this cell to download the data for this example project.</p>
+<div class="section" id="id3">
+<h3>Data retrieval<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Run this cell to download the data for this example project.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1383,6 +1434,7 @@ title="Print to PDF"
   <span class="n">label_names</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;label_names&#39;</span><span class="p">]</span>
   <span class="n">joint_names</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">),</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;joint_names&#39;</span><span class="p">]</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1823,33 +1875,33 @@ So a “1D” CNN in pytorch expects a 3D tensor as input: BxCxT</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [100/500], Step [1/2], Loss: 1.0731, Accuracy: 63.37%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [100/500], Step [1/2], Loss: 0.9780, Accuracy: 65.50%
 ------------------------------------------
-Epoch [100/500], Step [2/2], Loss: 1.0227, Accuracy: 61.82%
-------------------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [200/500], Step [1/2], Loss: 0.7752, Accuracy: 72.09%
-------------------------------------------
-Epoch [200/500], Step [2/2], Loss: 0.7859, Accuracy: 71.71%
+Epoch [100/500], Step [2/2], Loss: 0.9968, Accuracy: 64.92%
 ------------------------------------------
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [300/500], Step [1/2], Loss: 0.6443, Accuracy: 77.33%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [200/500], Step [1/2], Loss: 0.6783, Accuracy: 75.58%
 ------------------------------------------
-Epoch [300/500], Step [2/2], Loss: 0.6923, Accuracy: 73.06%
-------------------------------------------
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [400/500], Step [1/2], Loss: 0.5787, Accuracy: 81.20%
-------------------------------------------
-Epoch [400/500], Step [2/2], Loss: 0.5771, Accuracy: 79.26%
+Epoch [200/500], Step [2/2], Loss: 0.7232, Accuracy: 74.42%
 ------------------------------------------
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [500/500], Step [1/2], Loss: 0.5206, Accuracy: 81.20%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [300/500], Step [1/2], Loss: 0.5548, Accuracy: 80.23%
 ------------------------------------------
-Epoch [500/500], Step [2/2], Loss: 0.4725, Accuracy: 84.30%
+Epoch [300/500], Step [2/2], Loss: 0.5497, Accuracy: 82.17%
+------------------------------------------
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [400/500], Step [1/2], Loss: 0.5285, Accuracy: 80.81%
+------------------------------------------
+Epoch [400/500], Step [2/2], Loss: 0.5020, Accuracy: 83.33%
+------------------------------------------
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch [500/500], Step [1/2], Loss: 0.4768, Accuracy: 83.53%
+------------------------------------------
+Epoch [500/500], Step [2/2], Loss: 0.4639, Accuracy: 83.33%
 ------------------------------------------
 </pre></div>
 </div>
@@ -1893,7 +1945,7 @@ Epoch [500/500], Step [2/2], Loss: 0.4725, Accuracy: 84.30%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Example_Deep_Learning_Project_48_0.png" src="../../_images/Example_Deep_Learning_Project_48_0.png" />
+<img alt="../../_images/Example_Deep_Learning_Project_52_0.png" src="../../_images/Example_Deep_Learning_Project_52_0.png" />
 </div>
 </div>
 <p>The errors vary each time the model is run, but a common error seems to be that head scratching is predicted from some other movements that also involve arms a lot: throw/catch, hand clapping, phone talking, checking watch, hand waving, taking photo. If we train the model longer, these errors tend to go away as well. For some reason, crossed legged sitting is sometimes misclassified for crawling, but this doesn’t always happen.</p>
@@ -1981,10 +2033,10 @@ Epoch [500/500], Step [2/2], Loss: 0.4725, Accuracy: 84.30%
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>71.51162790697676
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>73.83720930232558
 </pre></div>
 </div>
-<img alt="../../_images/Example_Deep_Learning_Project_53_1.png" src="../../_images/Example_Deep_Learning_Project_53_1.png" />
+<img alt="../../_images/Example_Deep_Learning_Project_57_1.png" src="../../_images/Example_Deep_Learning_Project_57_1.png" />
 </div>
 </div>
 <p>That is some pretty good performance based on only 6 / 24 joints!</p>
@@ -2030,32 +2082,32 @@ Epoch [500/500], Step [2/2], Loss: 0.4725, Accuracy: 84.30%
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>*** FITTING: Left Leg
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 79.07%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 77.33%
 
 *** FITTING: Right Leg
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 74.42%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 75.00%
 
 *** FITTING: Left Arm
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 57.56%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 62.21%
 
 *** FITTING: Right Arm
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 51.16%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 34.30%
 
 *** FITTING: Torso
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 79.65%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 80.81%
 
 *** FITTING: Head
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 47.67%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>limb performance: 52.33%
 </pre></div>
 </div>
 </div>
@@ -2109,19 +2161,19 @@ Epoch [500/500], Step [2/2], Loss: 0.4725, Accuracy: 84.30%
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>*** FITTING: limbs only
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 6.98%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 74.42%
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 76.16%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 81.98%
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 73.84%
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 80.81%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 56.40%
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 71.51%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>performance: 73.26%
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
