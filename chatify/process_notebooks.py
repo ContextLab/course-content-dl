@@ -21,9 +21,7 @@ CACHE = False
 
 
 def get_tutorial_notebooks(basedir):
-    return lsdir(os.path.join(basedir, 'tutorials', '*', 'student', '*Tutorial*.ipynb')) + \
-           lsdir(os.path.join(basedir, 'tutorials', '*', 'instructor', '*Tutorial*.ipynb')) + \
-           lsdir(os.path.join(basedir, 'tutorials', '*', '*Tutorial*.ipynb'))
+    return lsdir(os.path.join(basedir, 'tutorials', '*', '*Tutorial*.ipynb'))
 
 
 def chatified(fname):
