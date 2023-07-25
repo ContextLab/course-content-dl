@@ -21,14 +21,14 @@ mv precourse-$BRANCH/prereqs/ prereqs/
 rm -r precourse-$BRANCH
 rm -r $BRANCH.tar.gz
 
-python ci/generate_book_dl.py student
+python ci/scripts/generate_book_dl.py student
 ln -s ../tutorials book/tutorials
 ln -s ../projects book/projects
 ln -s ../prereqs book/prereqs
 jupyter-book build book
-python ci/parse_html_for_errors.py student
+python ci/scripts/parse_html_for_errors.py student
 
-ghp-import -n -c "deeplearning.neuromatch.io" -m "Update course book" book/_build/html
+ghp-import -n -c "contextlab.github.io" -m "Update course book" book/_build/html
 git checkout -f gh-pages
 git push origin gh-pages
 
